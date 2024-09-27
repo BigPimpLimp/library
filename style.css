@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    background-color: black;
+    color: white;
+}
+
+.main {
+    display: grid;
+    grid-template-rows: .2fr 1fr .2fr;
+    justify-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
