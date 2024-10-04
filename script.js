@@ -19,30 +19,50 @@ document.getElementById('addBook')
     numPages = document.getElementById('num_pages').value;
     newBook = new Book(bookName, authorName, numPages);
     myLibrary.push(newBook);
+    addBookToDisplay(myLibrary);
     e.preventDefault();
+    clearForm();
+    myLibrary.length = 0;
 });
 
+let cardWrapper = document.getElementById('card-wrapper');
 
-
-let main = document.getElementById('main');
 
 function addBookToDisplay(arr) {
     arr.forEach(element => {
-        let myString = JSON.stringify(element);
-        // const div1 = document.createElement('div');
-        let paragraph1 = document.createElement('div')
-        .innerHTML = myString;
-        document.body.appendChild(paragraph1);
+      const newDiv = document.createElement('div');
+      newDiv.id = 'card';
+      cardWrapper.appendChild(newDiv);
+        for (let key in element) {
+          let myString = JSON.stringify(element[key]);
+          myString = charRemove(myString);
+          const newP = document.createElement('p');
+          newDiv.appendChild(newP);
+          newP.innerHTML = myString;
+        };
     });
 }
 
-function addBookToDisplay2(arr) {
-
+function clearForm () {
+    document.getElementById('book_name').value = '';
+    document.getElementById('author_name').value = '';
+    document.getElementById('num_pages').value = '';
 }
 
+function charRemove(str) {
+    str = str
+        .replaceAll('{', '')
+        .replaceAll('}', '')
+        .replaceAll(':', '')
+        .replaceAll(',', '')
+        .replaceAll('title', 'Title: ')
+        .replaceAll('author', 'Author: ')
+        .replaceAll('pages', 'Pages: ')
+        .replaceAll('"', '');
+        console.log(str);
+    return str;
+}
 
-
-
-
-// myLibrary.push(newBook1);
-// addBookToDisplay(myLibrary);
+const showButton = document.getElementById('openDialog');
+const bookDialog = document.getElementById('bookDialog');
+const selectEl = bookDialog.querySelector();

@@ -17,3 +17,19 @@
     align-items: center;
 }
 
+#card {
+    border: 2px solid white;
+    height: 150px;
+    width: 150px;
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+#card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin: 15px;
+}
+
