@@ -12,6 +12,7 @@ let authorName;
 let numPages;
 let newBook; 
 
+
 document.getElementById('addBook')
 .addEventListener('click', (e) => {
     bookName = document.getElementById('book_name').value;
@@ -27,7 +28,6 @@ document.getElementById('addBook')
 
 let cardWrapper = document.getElementById('card-wrapper');
 
-
 function addBookToDisplay(arr) {
     arr.forEach(element => {
       const newDiv = document.createElement('div');
@@ -40,6 +40,10 @@ function addBookToDisplay(arr) {
           newDiv.appendChild(newP);
           newP.innerHTML = myString;
         };
+      const removeButton = document.createElement('button');
+      removeButton.id = 'removeButton';
+      newDiv.appendChild(removeButton);
+      removeButton.textContent = 'Remove Book';
     });
 }
 
@@ -65,4 +69,18 @@ function charRemove(str) {
 
 const showButton = document.getElementById('openDialog');
 const bookDialog = document.getElementById('bookDialog');
-const selectEl = bookDialog.querySelector();
+const closeDialog = document.getElementById('closeDialog');
+const removeBook = document.getElementById('removeButton');
+
+showButton.addEventListener('click', () => {
+    bookDialog.showModal();
+})
+
+closeDialog.addEventListener('click', () => {
+    bookDialog.close();
+})
+
+removeBook.addEventListener('click', () => {
+    const parentElement = this.parentNode;
+    parentElement.remove();
+})

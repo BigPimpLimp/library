@@ -1,6 +1,6 @@
 * {
-    margin: 0;
-    background-color: black;
+    margin: 5px;
+    background-color: #121212;
     color: white;
 }
 
@@ -13,8 +13,16 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    align-items: center;
+}
+
+input, label {
+    display: block;  
+}
+
+.buttonDiv {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px;
 }
 
 #card {
@@ -32,4 +40,5 @@
     gap: 15px;
     margin: 15px;
 }
+
 
