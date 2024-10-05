@@ -1,4 +1,5 @@
 const myLibrary = [];
+const bookCollection = [];
 
 function Book(title, author, pages) {
     this.title = title;
@@ -31,7 +32,7 @@ let cardWrapper = document.getElementById('card-wrapper');
 function addBookToDisplay(arr) {
     arr.forEach(element => {
       const newDiv = document.createElement('div');
-      newDiv.id = 'card';
+      newDiv.className = 'card';
       cardWrapper.appendChild(newDiv);
         for (let key in element) {
           let myString = JSON.stringify(element[key]);
@@ -41,9 +42,10 @@ function addBookToDisplay(arr) {
           newP.innerHTML = myString;
         };
       const removeButton = document.createElement('button');
-      removeButton.id = 'removeButton';
+      removeButton.className = 'removeButton';
       newDiv.appendChild(removeButton);
       removeButton.textContent = 'Remove Book';
+      bookCollection.push(element);
     });
 }
 
@@ -70,17 +72,22 @@ function charRemove(str) {
 const showButton = document.getElementById('openDialog');
 const bookDialog = document.getElementById('bookDialog');
 const closeDialog = document.getElementById('closeDialog');
-const removeBook = document.getElementById('removeButton');
 
 showButton.addEventListener('click', () => {
     bookDialog.showModal();
 })
 
-closeDialog.addEventListener('click', () => {
+closeDialog.addEventListener('click', (e) => {
     bookDialog.close();
+    e.preventDefault();
 })
 
-removeBook.addEventListener('click', () => {
-    const parentElement = this.parentNode;
-    parentElement.remove();
+document.addEventListener('click', (e) => {
+    const target = e.target.closest('.removeButton');
+    console.log(target);
+    if(target) {
+        const parent = target.parentNode.closest('.card');
+        console.log(parent.dataset.value);
+        parent.remove();
+    }
 })
