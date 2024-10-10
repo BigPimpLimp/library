@@ -1,5 +1,4 @@
 const myLibrary = [];
-const bookCollection = [];
 
 function Book(title, author, pages) {
     this.title = title;
@@ -12,6 +11,7 @@ let bookName;
 let authorName;
 let numPages;
 let newBook; 
+let elementIndex = 0;
 
 
 document.getElementById('addBook')
@@ -24,16 +24,18 @@ document.getElementById('addBook')
     addBookToDisplay(myLibrary);
     e.preventDefault();
     clearForm();
-    myLibrary.length = 0;
 });
 
 let cardWrapper = document.getElementById('card-wrapper');
 
 function addBookToDisplay(arr) {
     arr.forEach(element => {
-      const newDiv = document.createElement('div');
-      newDiv.className = 'card';
-      cardWrapper.appendChild(newDiv);
+      let i = arr.indexOf(element);
+      if (i === arr.length - 1) {
+        const newDiv = document.createElement('div');
+        newDiv.className = 'card';
+        cardWrapper.appendChild(newDiv);
+        newDiv.dataset.index = i;
         for (let key in element) {
           let myString = JSON.stringify(element[key]);
           myString = charRemove(myString);
@@ -41,12 +43,13 @@ function addBookToDisplay(arr) {
           newDiv.appendChild(newP);
           newP.innerHTML = myString;
         };
-      const removeButton = document.createElement('button');
-      removeButton.className = 'removeButton';
-      newDiv.appendChild(removeButton);
-      removeButton.textContent = 'Remove Book';
-      bookCollection.push(element);
+        const removeButton = document.createElement('button');
+        removeButton.className = 'removeButton';
+        newDiv.appendChild(removeButton);
+        removeButton.textContent = 'Remove Book';
+      }
     });
+    
 }
 
 function clearForm () {
@@ -65,7 +68,6 @@ function charRemove(str) {
         .replaceAll('author', 'Author: ')
         .replaceAll('pages', 'Pages: ')
         .replaceAll('"', '');
-        console.log(str);
     return str;
 }
 
@@ -84,10 +86,11 @@ closeDialog.addEventListener('click', (e) => {
 
 document.addEventListener('click', (e) => {
     const target = e.target.closest('.removeButton');
-    console.log(target);
     if(target) {
         const parent = target.parentNode.closest('.card');
-        console.log(parent.dataset.value);
+        const arrElem = parent.getAttribute("data-index");
+        myLibrary.splice(arrElem, 1);
+        console.log(arrElem)
         parent.remove();
     }
 })
